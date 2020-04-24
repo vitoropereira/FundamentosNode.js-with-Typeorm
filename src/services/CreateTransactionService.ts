@@ -1,10 +1,10 @@
 import AppError from '../errors/AppError';
-import { getCustomRepository } from "typeorm";
+import { getCustomRepository, getRepository } from "typeorm";
 
 import Transaction from '../models/Transaction';
 import CategoriesReposirory from '../repositories/CategoriesRepository'
 import TransactionsReposirory from '../repositories/TransactionsRepository'
-
+import Category from '../models/Category';
 
 interface Repository {
   title: string,
@@ -15,53 +15,58 @@ interface Repository {
 
 class CreateTransactionService {
   public async execute({ title, value, type, category }: Repository): Promise<Transaction> {
-    // TODO
-    const categoriesReposirory = getCustomRepository(CategoriesReposirory)
-    const findCategories = await categoriesReposirory.findOne({
-      where: { title: category },
-    })
-    /**
-     * parei tentando visualizar todas as categorias.....
-     */
-    // if (!findCategories) {
-    //   console.log('--->>>')
-    //   const createCategory = await this.create({
-    //     title: category
-    //   })
+    // Outro jeito
+    const categoriesReposirory = getRepository(Category)
 
-    //   await this.save(createCategory)
-    //   return createCategory
+    let transactionCategory = await categoriesReposirory.findOne({
+      where: { title: category }
+    })
+
+    if(!transactionCategory){
+      transactionCategory = categoriesReposirory.create({
+        title: category,
+      })
+      await categoriesReposirory.save(transactionCategory)
+    }
+
+    // MEU JEITO
+    // if (type !== "outcome" && type !== "income") {
+    //   throw new AppError('As a type, use only "income" or "outcome".', 400)
     // }
 
-    return findCategories
+    // const categoriesReposirory = getCustomRepository(CategoriesReposirory)
 
+    // const findCategories = await categoriesReposirory.getCategory(category)
 
-    // if (!categoriesRepository) {
+    // if (!findCategories) {
     //   throw new AppError('Error with the categories type.', 400)
     // }
 
-    // const categoryId = categoriesRepository.findOne({
-    //   where: { title: category },
-    // })
-    // const transactionsRepository = getCustomRepository(TransactionsReposirory)
+    const transactionsRepository = getCustomRepository(TransactionsReposirory)
 
-    // if (!transactionsRepository) {
-    //   throw new AppError('Error creating a transaction.', 400)
-    // }
+    if (!transactionsRepository) {
+      throw new AppError('Error creating a transaction.', 400)
+    }
 
-    // const transaction = transactionsRepository.create({
-    //   title,
-    //   value,
-    //   type,
-    //   category_id = categoriesRepository.getId()
-    // })
+    const balance = transactionsRepository.getBalance()
+    const totalBalance = (await balance).total
 
-    // await appointmentsRepository.save(appointment)
+    if (type === "outcome") {
+      if (totalBalance < value) {
+        throw new AppError(`You don´t have enough balance. ${totalBalance}`, 400)
+      }
+    }
 
-    // await this.save(createCategory)
-    // return createCategory
+    const transaction = transactionsRepository.create({
+      title,
+      value,
+      type,
+      category: transactionCategory
+    })
 
+    await transactionsRepository.save(transaction)
 
+    return transaction
   }
 }
 

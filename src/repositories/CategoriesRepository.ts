@@ -2,15 +2,22 @@ import { EntityRepository, Repository } from 'typeorm';
 
 import Category from '../models/Category';
 
-interface Repository {
-  title: string,
-}
-
 @EntityRepository(Category)
 class CategoriesRepository extends Repository<Category> {
-  public async getBalance(category: Repository) {
+  public async getCategory(category: string) {
     // TODO
-    const categories = await this.find()
+
+    const categories = await this.findOne({
+      where: { title: category }
+    })
+
+    if (categories == null) {
+      const createCategory = this.create({
+        title: category
+      })
+      await this.save(createCategory)
+      return createCategory
+    }
 
     return categories
   }

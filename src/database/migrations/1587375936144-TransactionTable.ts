@@ -21,8 +21,9 @@ export default class TransactionTable1587375936144 implements MigrationInterface
           },
           {
             name: 'value',
-            type: 'numeric',
-            isNullable: false,
+            type: 'decimal',
+            precision: 10,
+            scale:2,
           },
           {
             name: 'type',

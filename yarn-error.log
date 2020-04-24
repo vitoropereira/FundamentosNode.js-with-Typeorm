@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add @type/typeorm
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add csv-parser
 
 PATH: 
-  C:\Users\Vitor Onofre\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Vitor Onofre\bin;C:\Python27;C:\Python27\Scripts;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\xampp\php;C:\Program Files\Condusiv Technologies\ExpressCache;C:\composer;C:\Users\Vitor Onofre\AppData\Roaming\Composer\vendor\bin;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files\nodejs;C:\Program Files (x86)\Yarn\bin;C:\Program Files\Java\jdk1.8.0_211\bin;C:\Users\Vitor Onofre\AppData\Local\Microsoft\WindowsApps;C:\Users\Vitor Onofre\AppData\Roaming\Composer\vendor\bin;C:\ffmpeg\bin;C:\Users\Vitor Onofre\AppData\Roaming\npm;C:\Users\Vitor Onofre\AppData\Local\Yarn\bin;C:\Users\Vitor Onofre\AppData\Local\Programs\Microsoft VS Code\bin;C:\Android\Sdk\platform-tools;C:\Android\Sdk\tools;C:\Program Files\Docker Toolbox;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+  C:\Users\Vitor Onofre\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Vitor Onofre\bin;C:\Python27;C:\Python27\Scripts;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\xampp\php;C:\Program Files\Condusiv Technologies\ExpressCache;C:\composer;C:\WINDOWS\system32\config\systemprofile\AppData\Roaming\Composer\vendor\bin;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files\nodejs;C:\Program Files (x86)\Yarn\bin;C:\Program Files\Java\jdk1.8.0_211\bin;C:\Users\Vitor Onofre\AppData\Local\Microsoft\WindowsApps;C:\Users\Vitor Onofre\AppData\Roaming\Composer\vendor\bin;C:\ffmpeg\bin;C:\Users\Vitor Onofre\AppData\Roaming\npm;C:\Users\Vitor Onofre\AppData\Local\Yarn\bin;C:\Users\Vitor Onofre\AppData\Local\Programs\Microsoft VS Code\bin;C:\Android\Sdk\platform-tools;C:\Android\Sdk\tools;C:\Program Files\Docker Toolbox;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
 
 Yarn version: 
   1.21.1
@@ -14,17 +14,8 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@type%2ftypeorm: Not found
-      at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:66056:18)
-      at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:140665:22)
-      at Request.emit (events.js:223:5)
-      at Request.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141637:10)
-      at Request.emit (events.js:223:5)
-      at IncomingMessage.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141559:12)
-      at Object.onceWrapper (events.js:312:28)
-      at IncomingMessage.emit (events.js:228:7)
-      at endReadableNT (_stream_readable.js:1185:12)
-      at processTicksAndRejections (internal/process/task_queues.js:81:21)
+  Error: getaddrinfo ENOTFOUND registry.yarnpkg.com
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:60:26)
 
 npm manifest: 
   {
@@ -45,10 +36,12 @@ npm manifest:
       "dotenv": "^8.2.0",
       "express": "^4.17.1",
       "express-async-errors": "^3.1.1",
+      "fast-csv": "^4.1.3",
       "multer": "^1.4.2",
       "pg": "^8.0.0",
       "reflect-metadata": "^0.1.13",
-      "typeorm": "^0.2.24"
+      "typeorm": "^0.2.24",
+      "uuidv4": "^6.0.7"
     },
     "devDependencies": {
       "@types/express": "4.17.3",
@@ -345,6 +338,29 @@ Lockfile:
     dependencies:
       exec-sh "^0.3.2"
       minimist "^1.2.0"
+  
+  "@fast-csv/format@^4.1.2":
+    version "4.1.2"
+    resolved "https://registry.yarnpkg.com/@fast-csv/format/-/format-4.1.2.tgz#68abbfa2f2a56055336de20f0f6dae6ca1fa4bd9"
+    integrity sha512-ERW7QuIEYa/eJArjzEKWe8Sdj9aNBLDjMfZw+EpcIb9CFOMz7SNZl8ElWOjcUU8Gj088TerBSGvUoCZN0SoXig==
+    dependencies:
+      lodash.escaperegexp "^4.1.2"
+      lodash.isboolean "^3.0.3"
+      lodash.isequal "^4.5.0"
+      lodash.isfunction "^3.0.9"
+      lodash.isnil "^4.0.0"
+  
+  "@fast-csv/parse@^4.1.2":
+    version "4.1.2"
+    resolved "https://registry.yarnpkg.com/@fast-csv/parse/-/parse-4.1.2.tgz#22a9d96143a072de7ffba74bcf7ae8062e3d283f"
+    integrity sha512-GmgHo1EHB5/M2v3tAj83l77PxGCxxYvx0s/PoWM/fp5PrS8ECtX0THKsuJ0jO3+BkpaHhX3/UZFOBnfcEw1FkQ==
+    dependencies:
+      lodash.escaperegexp "^4.1.2"
+      lodash.groupby "^4.6.0"
+      lodash.isfunction "^3.0.9"
+      lodash.isnil "^4.0.0"
+      lodash.isundefined "^3.0.1"
+      lodash.uniq "^4.5.0"
   
   "@istanbuljs/load-nyc-config@^1.0.0":
     version "1.0.0"
@@ -683,6 +699,11 @@ Lockfile:
     version "13.11.1"
     resolved "https://registry.yarnpkg.com/@types/node/-/node-13.11.1.tgz#49a2a83df9d26daacead30d0ccc8762b128d53c7"
     integrity sha512-eWQGP3qtxwL8FGneRrC5DwrJLGN4/dH1clNTuLfN81HCrxVtxRjygDTUoZJ5ASlDEeo0ppYFQjQIlXhtXpOn6g==
+  
+  "@types/node@^12.12.17":
+    version "12.12.37"
+    resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.37.tgz#cb4782d847f801fa58316da5b4801ca3a59ae790"
+    integrity sha512-4mXKoDptrXAwZErQHrLzpe0FN/0Wmf5JRniSVIdwUrtDf9wnmEV1teCNLBo/TwuXhkK/bVegoEn/wmb+x0AuPg==
   
   "@types/prettier@^1.19.0":
     version "1.19.1"
@@ -2150,6 +2171,15 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
     integrity sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=
   
+  fast-csv@^4.1.3:
+    version "4.1.3"
+    resolved "https://registry.yarnpkg.com/fast-csv/-/fast-csv-4.1.3.tgz#9c40529ce4316367db50da119ef0bd8853a2efe3"
+    integrity sha512-W2ifln3p+/Fv2tPRQq5Et8BdRb6/f4EhncmRMZHWlvZHr/s9uMe7ZVDtwD1kskwKDmTLsq63hPcJDtO4NYZr9w==
+    dependencies:
+      "@fast-csv/format" "^4.1.2"
+      "@fast-csv/parse" "^4.1.2"
+      "@types/node" "^12.12.17"
+  
   fast-deep-equal@^3.1.1:
     version "3.1.1"
     resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.1.tgz#545145077c501491e33b15ec408c294376e94ae4"
@@ -3482,6 +3512,41 @@ Lockfile:
     dependencies:
       p-locate "^4.1.0"
   
+  lodash.escaperegexp@^4.1.2:
+    version "4.1.2"
+    resolved "https://registry.yarnpkg.com/lodash.escaperegexp/-/lodash.escaperegexp-4.1.2.tgz#64762c48618082518ac3df4ccf5d5886dae20347"
+    integrity sha1-ZHYsSGGAglGKw99Mz11YhtriA0c=
+  
+  lodash.groupby@^4.6.0:
+    version "4.6.0"
+    resolved "https://registry.yarnpkg.com/lodash.groupby/-/lodash.groupby-4.6.0.tgz#0b08a1dcf68397c397855c3239783832df7403d1"
+    integrity sha1-Cwih3PaDl8OXhVwyOXg4Mt90A9E=
+  
+  lodash.isboolean@^3.0.3:
+    version "3.0.3"
+    resolved "https://registry.yarnpkg.com/lodash.isboolean/-/lodash.isboolean-3.0.3.tgz#6c2e171db2a257cd96802fd43b01b20d5f5870f6"
+    integrity sha1-bC4XHbKiV82WgC/UOwGyDV9YcPY=
+  
+  lodash.isequal@^4.5.0:
+    version "4.5.0"
+    resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
+    integrity sha1-QVxEePK8wwEgwizhDtMib30+GOA=
+  
+  lodash.isfunction@^3.0.9:
+    version "3.0.9"
+    resolved "https://registry.yarnpkg.com/lodash.isfunction/-/lodash.isfunction-3.0.9.tgz#06de25df4db327ac931981d1bdb067e5af68d051"
+    integrity sha512-AirXNj15uRIMMPihnkInB4i3NHeb4iBtNg9WRWuK2o31S+ePwwNmDPaTL3o7dTJ+VXNZim7rFs4rxN4YU1oUJw==
+  
+  lodash.isnil@^4.0.0:
+    version "4.0.0"
+    resolved "https://registry.yarnpkg.com/lodash.isnil/-/lodash.isnil-4.0.0.tgz#49e28cd559013458c814c5479d3c663a21bfaa6c"
+    integrity sha1-SeKM1VkBNFjIFMVHnTxmOiG/qmw=
+  
+  lodash.isundefined@^3.0.1:
+    version "3.0.1"
+    resolved "https://registry.yarnpkg.com/lodash.isundefined/-/lodash.isundefined-3.0.1.tgz#23ef3d9535565203a66cefd5b830f848911afb48"
+    integrity sha1-I+89lTVWUgOmbO/VuDD4SJEa+0g=
+  
   lodash.memoize@4.x:
     version "4.1.2"
     resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
@@ -3491,6 +3556,11 @@ Lockfile:
     version "4.7.0"
     resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
     integrity sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=
+  
+  lodash.uniq@^4.5.0:
+    version "4.5.0"
+    resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
+    integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
   
   lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15:
     version "4.17.15"
@@ -5505,10 +5575,22 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
     integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
   
+  uuid@7.0.3:
+    version "7.0.3"
+    resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.3.tgz#c5c9f2c8cf25dc0a372c4df1441c41f5bd0c680b"
+    integrity sha512-DPSke0pXhTZgoF/d+WSt2QaKMCFSfx7QegxEWT+JOuHF5aWrKEn0G+ztjuJg/gG8/ItK+rbPCD/yNv8yyih6Cg==
+  
   uuid@^3.3.2:
     version "3.4.0"
     resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
     integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
+  
+  uuidv4@^6.0.7:
+    version "6.0.7"
+    resolved "https://registry.yarnpkg.com/uuidv4/-/uuidv4-6.0.7.tgz#15e920848e1afbbd97b4919bc50f4f2f2278f880"
+    integrity sha512-4mpYRFNqO22EckzxPSJ/+xjn9GgO6SAqEJ33yt23Y+HZZoZOt/6l4U4iIjc86ZfxSN2fSCGGmHNb3kiACFNd1g==
+    dependencies:
+      uuid "7.0.3"
   
   v8-compile-cache@^2.0.3:
     version "2.1.0"

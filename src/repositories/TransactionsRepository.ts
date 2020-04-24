@@ -17,16 +17,18 @@ interface Balance {
 
 @EntityRepository(Transaction)
 class TransactionsRepository extends Repository<Transaction> {
-  public async getBalance({ title, value, type, category }: RepositoryDTO): Promise<Balance> {
+  public async getBalance(): Promise<Balance> {
     // TODO
+    const transactions = await this.find()
 
-    const { income, outcome } = (await this.find()).reduce((accumulator, transacition) => {
+    const { income, outcome } = transactions.reduce(
+      (accumulator, transacition) => {
       switch (transacition.type) {
         case "income":
-          accumulator.income += transacition.value
+          accumulator.income = Number(accumulator.income + transacition.value)
           break
         case "outcome":
-          accumulator.outcome = + transacition.value;
+          accumulator.outcome = Number(accumulator.outcome + transacition.value)
           break
         default:
           break
@@ -38,10 +40,25 @@ class TransactionsRepository extends Repository<Transaction> {
       total: 0
     })
 
+    // // usando filtro
+    // let income = 0;
+    // let outcome = 0;
+    // let total = 0;
+    // const repositories = await this.find()
+
+    // repositories.map(transaction => {
+    //   if (transaction.type === 'income') {
+    //     income = income + transaction.value
+    //   } else {
+    //     outcome = outcome + transaction.value
+    //   }
+    // })
+
     const total = income - outcome
 
-    return {income, outcome, total}
+    return { income, outcome, total }
   }
+
 }
 
 export default TransactionsRepository;
